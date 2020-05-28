@@ -36,11 +36,11 @@ class: bg-main1
 &lt;br&gt;&lt;br&gt;
 
 --
-### During the Covid-19 pandemic, information about the economic and social situation has changed rapidly. 📉
+### During the Covid-19 pandemic, information about the economic and social situation has changed rapidly. 📊
 &lt;br&gt;&lt;br&gt;
 
 --
-### Traditional indicators are *not sufficiently frequent* to monitor and forecast economic and social activity at high frequency 🕙
+### Traditional indicators are *not sufficiently frequent* to monitor and forecast economic and social activity at high frequency 🕔
 
 ---
 class: bg-main1
@@ -65,10 +65,10 @@ class: split-two with-border border-white
 Indicators based on Google Trends.
   ]]
   .row.bg-main2[.content.font2[
-R package .yellow[trendecon]
+R package [trendecon](https://trendecon.github.io/trendecon/)
   ]]
   .row.bg-main3[.content.font2[
-Website .yellow[www.trendecon.org] using flexdashboard.
+Website [www.trendecon.org](https://www.trendecon.org/) using flexdashboard.
 ]]
 ]]
 
@@ -118,7 +118,7 @@ class: bg-main1
 .blockquote.font_large[
 Use Google Trends data for keywords such as “Wirtschaftskrise” and “Insolvenz”. &lt;/br&gt;&lt;/br&gt;
 Retrieve Google Trends  data through the Google API.&lt;/br&gt;&lt;/br&gt;
-Construct indicators.&lt;/br&gt;&lt;/br&gt;
+Construct indicators using PCA.&lt;/br&gt;&lt;/br&gt;
 ]
  
 ---
@@ -128,7 +128,7 @@ class: bg-main1
 .blockquote.font_large[
 Use Google Trends data for keywords such as “Wirtschaftskrise” and “Insolvenz”. &lt;/br&gt;&lt;/br&gt;
 Retrieve Google Trends data through the Google API.&lt;/br&gt;&lt;/br&gt;
-Construct indicators.&lt;/br&gt;&lt;/br&gt;
+Construct indicators using PCA.&lt;/br&gt;&lt;/br&gt;
 Compare the data to existing economic indicators.&lt;/br&gt;&lt;/br&gt;
 ]
 
@@ -159,6 +159,186 @@ class: bg-main1
 ##Our goal is to produce long daily time series, ideally from 2006, but Google does not provide daily or weekly data for such a long time period. 
 
 ---
+
+class: middle bg-main1
+
+# How did we solve this?
+&lt;/br&gt;
+# You can check [www.trendecon.org/#method](https://www.trendecon.org/#method)
+&lt;/br&gt;
+# We create the R package [trendecon](https://trendecon.github.io/trendecon/)
+&lt;/br&gt;
+
+---
+class: split-two with-border border-white fade-row1-col1 fade-row3-col1
+.column[
+  .split-three[
+  .row.bg-main1[.content.font2[
+Indicators based on Google Trends.
+  ]]
+  .row.bg-main2[.content.font2[
+R package [trendecon](https://trendecon.github.io/trendecon/)
+  ]]
+  .row.bg-main3[.content.font2[
+Website .yellow[www.trendecon.org] using flexdashboard.
+]]
+]]
+.column.bg-main1[.content.center.vmiddle[
+&lt;img src="slide_img/package.png" width=100%&gt;
+]]
+
+---
+
+class: bg-main1
+#[trendecon](https://trendecon.github.io/trendecon/) package
+&lt;/br&gt;
+&lt;/br&gt;
+.font_large[
++ Construct long daily time series from Google Trends
+]
+---
+class: bg-main1
+#[trendecon](https://trendecon.github.io/trendecon/) package
+&lt;/br&gt;
+&lt;/br&gt;
+.font_large[
++ Construct long daily time series from Google Trends.
+&lt;/br&gt;
+&lt;/br&gt;
++ Robustness of the data is achieved by querying Google mulitple times.
+]
+---
+class: bg-main1
+#[trendecon](https://trendecon.github.io/trendecon/) package
+&lt;/br&gt;
+&lt;/br&gt;
+.font_large[
++ Construct long daily time series from Google Trends.
+&lt;/br&gt;
+&lt;/br&gt;
++ Robustness of the data is achieved by querying Google mulitple times.
+&lt;/br&gt;
+&lt;/br&gt;
++ The download itself relies on the [gtrendsR](https://cran.r-project.org/web/packages/gtrendsR/index.html) package by Philippe Massicotte and Dirk Eddelbuettel.
+]
+
+---
+class: bg-main1
+
+# Installation
+
+## You can install the trendecon package from GitHub.
+
+
+```r
+# install.packages("remotes")
+remotes::install_github("trendecon/trendecon")
+```
+
+---
+class: bg-main1
+
+# Usage
+
+## To download a series from Google Trends:
+
+
+```r
+x &lt;- ts_gtrends("cinema", geo = "CH")
+```
+
+```
+## Downloading data for today+5-y
+```
+
+```r
+#&gt; Downloading data for today+5-y
+tsbox::ts_plot(x)
+```
+
+![](trendecon_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+class: split-25 bg-main1 fade-row2-col2 with-border
+
+.row[
+#Usage
+Same parameters as ``gtrendsR::gtrends()``.&lt;br&gt;But with ``trendecon::ts_gtrends()``  you will have independent downloads for each keyword.]
+.row[
+  .split-two.with-border[
+  .column.bg-main2[.content[
+.center[``gtrendsR::gtrends()``]
+
+```r
+gtrends_dwload &lt;- gtrends(keyword = c("theater","kino"), 
+                          geo = "CH", 
+                          time = "today 12-m")
+gtrends_dwload$interest_over_time %&gt;% ggplot(...)
+```
+![](trendecon_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+    ]]
+  .column.bg-main3[.content[
+.center[``trendecon::ts_gtrends()``]
+
+```r
+trendecon_dwload &lt;- ts_gtrends(keyword = c("theater","kino"),
+                               geo = "CH", 
+                               time = "today 12-m")
+tsbox::ts_ggplot(trendecon_dwload) + ...
+```
+![](trendecon_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+  ]]
+]]
+
+---
+class: split-25 bg-main1 fade-row2-col1 with-border
+
+.row[
+#Usage
+Same parameters as ``gtrendsR::gtrends()``.&lt;br&gt;But with ``trendecon::ts_gtrends()``  you will have independent downloads for each keyword.]
+.row[
+  .split-two.with-border[
+  .column.bg-main2[.content[
+.center[``gtrendsR::gtrends()``]
+
+```r
+gtrends_dwload &lt;- gtrends(keyword = c("theater","kino"), 
+                          geo = "CH", 
+                          time = "today 12-m")
+gtrends_dwload$interest_over_time %&gt;% ggplot(...)
+```
+![](trendecon_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+    ]]
+  .column.bg-main3[.content[
+.center[``trendecon::ts_gtrends()``]
+
+```r
+trendecon_dwload &lt;- ts_gtrends(keyword = c("theater","kino"),
+                               geo = "CH", 
+                               time = "today 12-m")
+tsbox::ts_ggplot(trendecon_dwload) + ...
+```
+![](trendecon_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+  ]]
+]]
+
+---
+class: split-two with-border border-white fade-row1-col1 fade-row2-col1
+.column[
+  .split-three[
+  .row.bg-main1[.content.font2[
+Indicators based on Google Trends.
+  ]]
+  .row.bg-main2[.content.font2[
+R package [trendecon](https://trendecon.github.io/trendecon/)
+  ]]
+  .row.bg-main3[.content.font2[
+Website [www.trendecon.org](https://www.trendecon.org/) using flexdashboard.
+]]
+]]
+.column.bg-main1[.content.center.vmiddle[
+&lt;img src="slide_img/web.png" width=100%&gt;
+]]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
