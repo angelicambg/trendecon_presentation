@@ -40,6 +40,10 @@ class: bg-main1
 <br><br>
 
 --
+### The project was initiated during the [#versusvirus](https://www.versusvirus.ch/) hackathon from April 3 to April 5.
+<br><br>
+
+--
 ### During the Covid-19 pandemic, information about the economic and social situation has changed rapidly. `r emo::ji("metrics")`
 <br><br>
 
