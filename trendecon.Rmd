@@ -48,7 +48,7 @@ class: bg-main1
 <br><br>
 
 --
-### Traditional indicators are *not sufficiently frequent* to monitor and forecast economic and social activity at high frequency `r emo::ji("clock")`
+### Traditional economic indicators have a significant .yellow[lag] of up to 3 months and are .yellow[not sufficiently frequent] to monitor the economy and social activity at high frequency during times of rapid change `r emo::ji("clock")`
 
 ---
 class: bg-main1
@@ -166,7 +166,7 @@ class: bg-main1
 
 #Available data
 </br>
-##Google search results are available on a daily, weekly or monthly frequency. 
+##Google search results are available on a daily, weekly or monthly frequency; depending on the time window queried.
 </br>
 ##Our goal is to produce long daily time series, ideally from 2006, but Google does not provide daily or weekly data for such a long time period. 
 
