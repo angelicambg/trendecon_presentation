@@ -36,15 +36,16 @@ class: bg-main1
 &lt;br&gt;&lt;br&gt;
 
 --
+### During the Covid-19 pandemic, information about the economic and social situation has changed rapidly. 📉
+&lt;br&gt;&lt;br&gt;
+
+--
+### Traditional economic indicators have a significant .yellow[lag] of up to 3 months, and are .yellow[not sufficiently frequent] to monitor the economy and social activity at high frequency during times of rapid change 🕤
+&lt;br&gt;&lt;br&gt;
+
+--
 ### The project was initiated during the [#versusvirus](https://www.versusvirus.ch/) hackathon from April 3 to April 5.
 &lt;br&gt;&lt;br&gt;
-
---
-### During the Covid-19 pandemic, information about the economic and social situation has changed rapidly. 📊
-&lt;br&gt;&lt;br&gt;
-
---
-### Traditional economic indicators have a significant .yellow[lag] of up to 3 months, and are .yellow[not sufficiently frequent] to monitor the economy and social activity at high frequency during times of rapid change 🕰
 
 ---
 class: bg-main1
@@ -211,6 +212,7 @@ class: bg-main1
 &lt;/br&gt;
 + Robustness of the data is achieved by querying Google mulitple times.
 ]
+
 ---
 class: bg-main1
 #[trendecon](https://trendecon.github.io/trendecon/) package
@@ -221,6 +223,24 @@ class: bg-main1
 &lt;/br&gt;
 &lt;/br&gt;
 + Robustness of the data is achieved by querying Google mulitple times.
+&lt;/br&gt;
+&lt;/br&gt;
++ The queries are sampled at daily, weekly and monthly frequencies and then harmonized such that the long term trend is preserved.
+]
+
+---
+class: bg-main1
+#[trendecon](https://trendecon.github.io/trendecon/) package
+&lt;/br&gt;
+&lt;/br&gt;
+.font_large[
++ Construct long daily time series from Google Trends.
+&lt;/br&gt;
+&lt;/br&gt;
++ Robustness of the data is achieved by querying Google mulitple times.
+&lt;/br&gt;
+&lt;/br&gt;
++ The queries are sampled at daily, weekly and monthy frequencies and then harmonized such that the long term trend is preserved.
 &lt;/br&gt;
 &lt;/br&gt;
 + The download itself relies on the [gtrendsR](https://cran.r-project.org/web/packages/gtrendsR/index.html) package by Philippe Massicotte and Dirk Eddelbuettel.
@@ -327,6 +347,70 @@ tsbox::ts_ggplot(trendecon_dwload) + ...
 ]]
 
 ---
+class: split-25 bg-main1 fade-row2-col2 with-border
+
+.row[
+#Usage
+Independent download is important because you might end up with many zeros.]
+.row[
+  .split-two.with-border[
+  .column.bg-main2[.content[
+.center[``gtrendsR::gtrends()``]
+
+```r
+gtrends_dwload &lt;- gtrends(keyword = c("insolvenz","kino"), 
+                          geo = "CH", 
+                          time = "today 12-m")
+gtrends_dwload$interest_over_time %&gt;% ggplot(...)
+```
+![](trendecon_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+    ]]
+  .column.bg-main3[.content[
+.center[``trendecon::ts_gtrends()``]
+
+```r
+trendecon_dwload &lt;- ts_gtrends(keyword = c("insolvenz","kino"),
+                               geo = "CH", 
+                               time = "today 12-m")
+tsbox::ts_ggplot(trendecon_dwload) + ...
+```
+![](trendecon_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+  ]]
+]]
+
+---
+class: split-25 bg-main1 fade-row2-col1 with-border
+
+.row[
+#Usage
+Independent download is important because you might end up with many zeros.]
+.row[
+  .split-two.with-border[
+  .column.bg-main2[.content[
+.center[``gtrendsR::gtrends()``]
+
+```r
+gtrends_dwload &lt;- gtrends(keyword = c("insolvenz","kino"), 
+                          geo = "CH", 
+                          time = "today 12-m")
+gtrends_dwload$interest_over_time %&gt;% ggplot(...)
+```
+![](trendecon_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+    ]]
+  .column.bg-main3[.content[
+.center[``trendecon::ts_gtrends()``]
+
+```r
+trendecon_dwload &lt;- ts_gtrends(keyword = c("insolvenz","kino"),
+                               geo = "CH", 
+                               time = "today 12-m")
+tsbox::ts_ggplot(trendecon_dwload) + ...
+```
+![](trendecon_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+  ]]
+]]
+
+---
 class: split-two with-border border-white fade-row1-col1 fade-row2-col1
 .column[
   .split-three[
@@ -341,8 +425,19 @@ Website [www.trendecon.org](https://www.trendecon.org/) using flexdashboard.
 ]]
 ]]
 .column.bg-main1[.content.center.vmiddle[
+Indicators.
+&lt;br&gt;Data available online.
+&lt;br&gt;R package.&lt;br&gt;
 &lt;img src="slide_img/web.png" width=100%&gt;
+
 ]]
+
+---
+class: middle bg-main1
+
+&lt;img src="slide_img/thank_you.gif" width=50%&gt;
+
+# [www.trendecon.org](https://www.trendecon.org/)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
