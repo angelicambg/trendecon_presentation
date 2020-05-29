@@ -551,8 +551,8 @@ Website [www.trendecon.org](https://www.trendecon.org/) using flexdashboard.
 ]]
 .column.bg-main1[.content.center.vmiddle[
 Indicators.
-<br>Data available online.
-<br>R package.<br>
+<br><br>Data available online.
+<br><br>R package.<br><br>
 <img src="slide_img/web.png" width=100%>
 
 ]]
