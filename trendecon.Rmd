@@ -48,7 +48,7 @@ class: bg-main1
 <br><br>
 
 --
-### Traditional economic indicators have a significant .yellow[lag] of up to 3 months and are .yellow[not sufficiently frequent] to monitor the economy and social activity at high frequency during times of rapid change `r emo::ji("clock")`
+### Traditional economic indicators have a significant .yellow[lag] of up to 3 months, and are .yellow[not sufficiently frequent] to monitor the economy and social activity at high frequency during times of rapid change `r emo::ji("clock")`
 
 ---
 class: bg-main1
